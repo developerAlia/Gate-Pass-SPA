@@ -1,0 +1,183 @@
+<div class="modal-header">
+  <h4 class="modal-title" id="modal-basic-title">
+    {{ modalTitle | translate }}
+  </h4>
+  <button type="button" class="close" aria-label="Close" (click)="closeModal()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<form class="form theme-form" *ngIf="inputForm" [formGroup]="inputForm">
+  <div class="modal-body">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="card">
+            <div class="card-body step-indicator">
+              <aw-wizard navBarLayout="large-filled-symbols">
+                <!-- *ngIf="
+                  this.inputData.requestsId != 0 &&
+                  this.inputData.isSecurity == true
+                " -->
+                <aw-wizard-step
+                  *ngIf="
+                    this.inputData.requestsId != 0 &&
+                    this.inputData.isSecurity == true
+                  "
+                  [navigationSymbol]="{
+                    symbol: '&#xf007;',
+                    fontFamily: 'FontAwesome'
+                  }"
+                  stepTitle="{{ 'PROFILE' | translate }}"
+                >
+                  <visitor-profile-view-section
+                    [userData]="this.requestData.user"
+                  ></visitor-profile-view-section>
+                </aw-wizard-step>
+                <aw-wizard-step
+                  [navigationSymbol]="{
+                    symbol: '&#xf073;',
+                    fontFamily: 'FontAwesome '
+                  }"
+                  stepTitle="{{ 'DATE' | translate }}"
+                >
+                  <visitor-date-section
+                    [permitDates]="permitDates"
+                    [visitorDetails]="visitorDetails"
+                    [drivingLicenseDetails]="this.drivingLicenseDetails"
+                    [vehicleDetails]="this.vehicleDetails"
+                    [isOfficer]="this.inputForm.get('isOfficer').value"
+                    [isSecurity]="this.inputData.isSecurity"
+                    (numberOfDays)="assignNumOfDays($event)"
+                  >
+                  </visitor-date-section>
+                </aw-wizard-step>
+                <aw-wizard-step
+                  [navigationSymbol]="{
+                    symbol: '&#xf2c2;',
+                    fontFamily: 'FontAwesome'
+                  }"
+                  stepTitle="{{ 'IDCARD' | translate }}"
+                >
+                  <visitor-id-section
+                    [visitorDetails]="visitorDetails"
+                    [isSecurity]="this.inputData.isSecurity"
+                  ></visitor-id-section>
+                </aw-wizard-step>
+                <aw-wizard-step
+                  [navigationSymbol]="{
+                    symbol: '&#xf183;',
+                    fontFamily: 'FontAwesome'
+                  }"
+                  stepTitle="{{ 'VISITORDETAILS' | translate }}"
+                >
+                  <visitor-details-section
+                    [visitorDetails]="visitorDetails"
+                    [idCardAttach]="this.idCardAttach"
+                    [drivingLicenseDetails]="this.drivingLicenseDetails"
+                    [tempURLImg]="this.tempURLImg"
+                    [imgAttach]="this.personPhotoFile"
+                    [isSecurity]="this.inputData.isSecurity"
+                    (idCardFile)="
+                      checkFileSize(
+                        $event.file,
+                        $event.controlName,
+                        $event.isPDF
+                      )
+                    "
+                    (viewAttachmentFile)="viewAttachmentFile($event)"
+                  ></visitor-details-section>
+                </aw-wizard-step>
+                <aw-wizard-step
+                  [navigationSymbol]="{
+                    symbol: '&#xf2c2;',
+                    fontFamily: 'FontAwesome'
+                  }"
+                  [stepTitle]="
+                    this.visitorDetails.get('numberOfDays').value > 14
+                      ? ('DrivingLicense' | translate)
+                      : ('PlateDetails' | translate)
+                  "
+                >
+                  <!-- *ngIf="
+                    this.visitorDetails.get('numberOfDays').value > 14 &&
+                    this.inputForm.get('isOfficer').value == true
+                  " -->
+                  <visitor-driving-license-details-section
+                    [drivingLicenseDetails]="drivingLicenseDetails"
+                    [vehicleDetails]="vehicleDetails"
+                    [usersId]="this.visitorDetails.get('usersId').value"
+                    [isSecurity]="this.inputData.isSecurity"
+                    [licenseCardAttach]="this.licenseCardAttach"
+                    [numOfDays]="this.visitorDetails.get('numberOfDays').value"
+                    (fileToUpload)="
+                      checkFileSize(
+                        $event.file,
+                        $event.controlName,
+                        $event.isPDF
+                      )
+                    "
+                    (viewAttachmentFile)="viewAttachmentFile($event)"
+                  >
+                  </visitor-driving-license-details-section>
+                </aw-wizard-step>
+                <aw-wizard-step
+                  [navigationSymbol]="{
+                    symbol: '&#xf1b9;',
+                    fontFamily: 'FontAwesome'
+                  }"
+                  stepTitle="{{ 'VehicleDetails' | translate }}"
+                >
+                  <!-- *ngIf="
+                    this.visitorDetails.get('numberOfDays').value > 14 &&
+                    this.inputForm.get('isOfficer').value == true
+                  " -->
+                  <visitor-vehicle-details
+                    [registrationAttach]="this.registrationAttach"
+                    [ownershipCardAttach]="this.ownershipCardAttach"
+                    [noObjectionAttach]="this.noObjectionAttach"
+                    [rentalContractAttach]="this.rentalContractAttach"
+                    [vehicleDetails]="this.vehicleDetails"
+                    [isSecurity]="this.inputData.isSecurity"
+                    [numOfDays]="this.visitorDetails.get('numberOfDays').value"
+                    [usersId]="this.visitorDetails.get('usersId').value"
+                    (fileToUpload)="
+                      checkFileSize(
+                        $event.file,
+                        $event.controlName,
+                        $event.isPDF
+                      )
+                    "
+                    (viewAttachmentFile)="viewAttachmentFile($event)"
+                  >
+                  </visitor-vehicle-details>
+                </aw-wizard-step>
+                <aw-wizard-step
+                  [navigationSymbol]="{
+                    symbol: '&#xf058;',
+                    fontFamily: 'FontAwesome'
+                  }"
+                  stepTitle="{{ 'Confirmation' | translate }}"
+                >
+                  <app-visitor-confirmation-section
+                    [inputForm]="inputForm"
+                    [permitDates]="permitDates"
+                    [visitorDetails]="visitorDetails"
+                    [drivingLicenseDetails]="drivingLicenseDetails"
+                    [vehicleDetails]="vehicleDetails"
+                    [isSecurity]="this.inputData.isSecurity"
+                    (securityUpdate)="onSubmitSecurity()"
+                    (onSubmitEmitter)="onSubmit($event)"
+                  >
+                  </app-visitor-confirmation-section>
+                </aw-wizard-step>
+              </aw-wizard>
+            </div>
+            <!-- {{ this.visitorDetails.get("numberOfDays").value }}
+            <button type="button" (click)="testData()">Test</button> -->
+            <!-- <button type="button" (click)="testData()">Test</button> -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>

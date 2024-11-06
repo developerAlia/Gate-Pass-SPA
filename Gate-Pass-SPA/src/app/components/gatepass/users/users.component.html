@@ -1,0 +1,394 @@
+<div class="container-fluid pb-4">
+  <div class="card">
+    <div class="card-body">
+      <div class="row">
+        <div class="col-xl-6">
+          <form class="search-form contact-search">
+            <div class="form-group mb-0">
+              <input
+                type="text"
+                class="form-control"
+                [(ngModel)]="userParams.fullName"
+                [ngModelOptions]="{ standalone: true }"
+                placeholder="Search by name..."
+                (keyup.enter)="search()"
+              />
+            </div>
+          </form>
+        </div>
+        <div class="col-3 mt-2">
+          <a href="javascript:void(0)"
+            ><i
+              class="icofont icofont-user-search"
+              style="font-size: 2em"
+              (click)="search()"
+            ></i
+          ></a>
+        </div>
+        <div class="col-2"></div>
+        <ng-template #tipAddNew>Add</ng-template>
+        <div class="col-1 mt-1">
+          <a href="javascript:void(0)"
+            ><i
+              [ngbTooltip]="tipAddNew"
+              class="icofont icofont-ui-add"
+              style="font-size: 2em"
+              (click)="addStdModelFun(AddStdModel)"
+            ></i
+          ></a>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-3 col-lg-3 col-xl-3" *ngFor="let usrCard of userCard">
+        <ng-template #tipAddDetails>Details</ng-template>
+        <ng-template #tipgetTran>Student Transcript</ng-template>
+        <div class="card custom-card">
+          <div class="card-header">
+            <img
+              class="img-fluid"
+              src="assets/images/user-pattern/3.jpg"
+              alt=""
+            />
+          </div>
+          <div class="card-profile">
+            <img
+              class="rounded-circle"
+              src="{{
+                usrCard.img
+                  ? 'data:image/jpg;base64,' + usrCard.img
+                  : 'assets/images/user/user.png'
+              }}"
+              alt=""
+              width="38%"
+              height="38%"
+            />
+          </div>
+          <ul class="card-social">
+            <li>
+              <a
+                [ngbTooltip]="tipAddDetails"
+                href="javascript:void(0)"
+                [routerLink]="['/gatepass/myprofile/', usrCard.usersId]"
+                ><i class="icofont icofont-navigation-menu"></i
+              ></a>
+            </li>
+          </ul>
+          <div class="text-center profile-details">
+            <strong>{{ usrCard.fullNameEn }}</strong>
+            <ng-template #tipRest>Rest Password</ng-template>
+            <h6>
+              <span>{{ usrCard.email }}</span>
+            </h6>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <ngb-pagination
+        [boundaryLinks]="true"
+        [(page)]="pagination.currentPage"
+        [pageSize]="pagination.itemsPerPage"
+        [collectionSize]="pagination.totalItems"
+        (pageChange)="changePage($event)"
+        [rotate]="true"
+        [maxSize]="5"
+        [boundaryLinks]="true"
+      ></ngb-pagination>
+    </div>
+  </div>
+</div>
+
+<!-- Add Researcher modal Start -->
+<ng-template #AddStdModel let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Add</h4>
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <nav
+    ngbNav
+    (navChange)="onDismissModalAndChange()"
+    #nav="ngbNav"
+    [activeId]="1"
+    class="nav-tabs"
+  >
+    <!-- Student Section Start -->
+    <ng-container [ngbNavItem]="1">
+      <a ngbNavLink> <i class="icofont icofont-man-in-glasses"></i>Student</a>
+      <ng-template ngbNavContent>
+        <form
+          class="form theme-form"
+          [formGroup]="addStdForm"
+          (ngSubmit)="submitted()"
+        >
+          <div class="modal-body">
+            <div class="row">
+              <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                <img
+                  class="rounded-circle"
+                  src="{{
+                    sitsInfo?.img
+                      ? 'data:image/jpg;base64,' + sitsInfo?.img
+                      : 'assets/images/user/user.png'
+                  }}"
+                  alt=""
+                  width="80%"
+                  height="30%"
+                />
+              </div>
+
+              <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
+                <div class="row">
+                  <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
+                    <app-text-input
+                      [formControl]="addStdForm.controls['stdId']"
+                      [type]="'number'"
+                      [label]="'Student Id'"
+                    >
+                    </app-text-input>
+                  </div>
+                  <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                    <a href="javascript:void(0)"
+                      ><i
+                        class="icofont icofont-user-search"
+                        style="font-size: 2em"
+                        (click)="searchStd()"
+                      ></i>
+                    </a>
+                  </div>
+                  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <label for="name">Name :</label>
+                    <label class="form-control" for="name"
+                      >{{ sitsInfo?.fullName }}
+                    </label>
+                  </div>
+                  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <label for="name">Department :</label>
+                    <label class="form-control" for="name"
+                      >{{ sitsInfo?.department }}
+                    </label>
+                  </div>
+                  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <label for="name">Mobile :</label>
+                    <label class="form-control" for="name"
+                      >{{ sitsInfo?.mobile }}
+                    </label>
+                  </div>
+                  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <label for="name">Email :</label>
+                    <label class="form-control" for="name"
+                      >{{ sitsInfo?.email }}
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button
+                class="btn btn-primary mr-1"
+                [disabled]="!sitsInfo?.userId"
+                type="submit"
+              >
+                Add
+              </button>
+              <!-- <button type="button" class="btn btn-outline-dark" type="submit"  [disabled]="!jobForm.valid" (click)="modal.close('Save click')">Save</button> -->
+            </div>
+          </div>
+        </form>
+      </ng-template>
+    </ng-container>
+    <!-- Student Section Start -->
+    <!-- External Section Start -->
+    <ng-container [ngbNavItem]="2">
+      <a ngbNavLink> <i class="fa fa-cogs"></i>External</a>
+      <ng-template ngbNavContent>
+        <form
+          class="form theme-form"
+          [formGroup]="addExternalForm"
+          (ngSubmit)="onSubmitExternal()"
+        >
+          <div class="modal-body">
+            <div class="row">
+              <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                <div class="image-upload">
+                  <img
+                    class="rounded-circle"
+                    src="{{
+                      tempURLImg ? tempURLImg : 'assets/images/user/user.png'
+                    }}"
+                    alt=""
+                    width="80%"
+                    height="30%"
+                    (click)="imageUpload.click()"
+                  />
+                  <span
+                    (click)="imageUpload.click()"
+                    class="badge badge-pill badge-success pull-right badge-span"
+                  >
+                    <span class="text">+</span>
+                  </span>
+                  <!-- <i class="fa fa-plus" aria-hidden="true"></i> -->
+                </div>
+                <div>
+                  <small class="form-text text-muted mt-3" id="attachmentHelp">
+                    Image Should be
+                    <strong>Image(.JPG, .JPEG or .PNG)</strong> and Maximum Size
+                    is <strong>150MB</strong>
+                  </small>
+
+                  <br />
+                  <!-- <div class="invalid-feedback" style="padding-top: 2px;">Attachment is required !</div> -->
+                  <input
+                    type="file"
+                    class="custom-file-input"
+                    id="validatedCustomFile"
+                    accept=".png,.jpg,.jpeg"
+                    (change)="checkFileSize($event.target.files)"
+                    style="display: none"
+                    #imageUpload
+                    formControlName="img"
+                  />
+                  <div
+                    class="invalid-feedback"
+                    style="padding-top: 2px; display: block"
+                    *ngIf="addExternalForm.get('img').errors?.requiredFileType"
+                  >
+                    .JPG, .JPEG or .PNG is required !
+                  </div>
+                  <div
+                    class="invalid-feedback"
+                    style="padding-top: 2px; display: block"
+                    *ngIf="addExternalForm.get('img').errors?.fileSizeValidator"
+                  >
+                    File Size exceed 150MB
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
+                <div class="row">
+                  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <label for="name"
+                      >Full Name : <span class="font-danger">*</span></label
+                    >
+                    <app-text-input
+                      [formControl]="addExternalForm.controls['fullName']"
+                      [type]="'text'"
+                      [label]="'Full Name'"
+                    >
+                    </app-text-input>
+                  </div>
+
+                  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <label for="name"
+                      >Working Place : <span class="font-danger">*</span></label
+                    >
+                    <app-text-input
+                      [formControl]="addExternalForm.controls['workingPlace']"
+                      [type]="'text'"
+                      [label]="'Working Place'"
+                    >
+                    </app-text-input>
+                  </div>
+
+                  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <label for="name"
+                      >Department : <span class="font-danger">*</span></label
+                    >
+                    <app-text-input
+                      [formControl]="addExternalForm.controls['department']"
+                      [type]="'text'"
+                      [label]="'Department'"
+                    >
+                    </app-text-input>
+                  </div>
+
+                  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <label for="name"
+                      >Mobile Number : <span class="font-danger">*</span></label
+                    >
+                    <app-text-input
+                      [formControl]="addExternalForm.controls['mobile']"
+                      [type]="'number'"
+                      [label]="'Mobile Number'"
+                    >
+                    </app-text-input>
+                  </div>
+
+                  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <label for="name"
+                      >Email : <span class="font-danger">*</span></label
+                    >
+                    <app-text-input
+                      [formControl]="addExternalForm.controls['Email']"
+                      [type]="'email'"
+                      [label]="'Email'"
+                    >
+                    </app-text-input>
+                  </div>
+
+                  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <label for="name"
+                      >Designation : <span class="font-danger">*</span></label
+                    >
+                    <app-text-input
+                      [formControl]="addExternalForm.controls['Designation']"
+                      [type]="'text'"
+                      [label]="'Designation'"
+                    >
+                    </app-text-input>
+                  </div>
+
+                  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <label for="name"
+                      >University : <span class="font-danger">*</span></label
+                    >
+                    <app-text-input
+                      [formControl]="addExternalForm.controls['University']"
+                      [type]="'text'"
+                      [label]="'University'"
+                    >
+                    </app-text-input>
+                  </div>
+
+                  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <label for="name"
+                      >Degree : <span class="font-danger">*</span></label
+                    >
+                    <app-text-input
+                      [formControl]="addExternalForm.controls['Degree']"
+                      [type]="'text'"
+                      [label]="'Degree'"
+                    >
+                    </app-text-input>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button
+                class="btn btn-primary mr-1"
+                [disabled]="!addExternalForm.valid"
+                type="submit"
+              >
+                Add
+              </button>
+              <!-- <button type="button" class="btn btn-outline-dark" type="submit"  [disabled]="!jobForm.valid" (click)="modal.close('Save click')">Save</button> -->
+            </div>
+          </div>
+        </form>
+      </ng-template>
+    </ng-container>
+    <!-- External Section End -->
+  </nav>
+  <div [ngbNavOutlet]="nav" class="mt-2"></div>
+</ng-template>
+
+<!-- Add Researcher modal End -->

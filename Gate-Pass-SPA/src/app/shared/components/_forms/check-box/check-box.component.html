@@ -1,0 +1,14 @@
+<div class="form-group">
+  <div class="form-check checkbox checkbox-primary">
+    <input
+      class="form-check-input"
+      [id]="id"
+      type="checkbox"
+      [class.is-invalid]="ngControl.touched && ngControl.invalid"
+      [formControl]="ngControl.control"
+    />
+    <label class="form-check-label" [for]="id">{{
+      label | translate
+    }}</label>
+  </div>
+</div>

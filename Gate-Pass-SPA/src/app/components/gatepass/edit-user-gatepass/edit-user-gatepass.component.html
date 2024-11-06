@@ -1,0 +1,133 @@
+<div class="container-fluid">
+  <div class="edit-profile">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title mb-0">
+              <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                  <h4>{{ "Gate-Pass-Detalis" | translate }}</h4>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card-body">
+            <form [formGroup]="userDetailsForm">
+              <div class="row">
+                <div
+                  class="mt-3 form-group col-xs-12 col-sm-12 col-md-3 col-lg-3"
+                >
+                  <label class="form-label">{{
+                    "ID/Mod-No" | translate
+                  }}</label>
+                  <app-text-input
+                    formControlName="idno"
+                  >
+                  </app-text-input>
+                </div>
+                <fieldset class="m-2 col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                  <legend class="w-auto px-2">
+                    {{ "VehicleDetails" | translate }}
+                  </legend>
+                  <div class="row">
+                    <div class="mt-3 col-xs-12 col-sm-12 col-md-6 col-lg-3">
+                      <label class="form-label">{{
+                        "VehicleMaker" | translate
+                      }}</label>
+                      <app-text-input formControlName="idno"> </app-text-input>
+                    </div>
+                    <div class="mt-3 col-xs-12 col-sm-12 col-md-6 col-lg-3">
+                      <label class="form-label">{{
+                        "VehicleModel" | translate
+                      }}</label>
+                      <app-text-input formControlName="idno"> </app-text-input>
+                    </div>
+                    <div class="mt-3 col-xs-12 col-sm-12 col-md-6 col-lg-3">
+                      <label class="form-label">{{
+                        "VehicleNumber" | translate
+                      }}</label>
+                      <app-text-input formControlName="idno"> </app-text-input>
+                    </div>
+                    <div class="mt-3 col-xs-12 col-sm-12 col-md-6 col-lg-3">
+                      <label class="form-label">{{
+                        "PlateCode" | translate
+                      }}</label>
+                      <app-text-input formControlName="idno"> </app-text-input>
+                    </div>
+                    <div class="mt-3 col-xs-12 col-sm-12 col-md-6 col-lg-3">
+                      <label class="form-label">{{ "Year" | translate }}</label>
+                      <app-text-input formControlName="idno"> </app-text-input>
+                    </div>
+
+                    <div class="mt-3 col-xs-12 col-sm-12 col-md-6 col-lg-3">
+                      <label class="form-label">{{
+                        "Colors" | translate
+                      }}</label>
+                      <app-text-input formControlName="idno"> </app-text-input>
+                    </div>
+                  </div>
+                </fieldset>
+                <fieldset class="m-2 col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                  <legend class="w-auto px-2">
+                    {{ "Documents" | translate }}
+                  </legend>
+                  <div class="row">
+                    <div class="mt-3 col-xs-12 col-sm-12 col-md-3 col-lg-3">
+                      <label class="form-label">{{
+                        "DrivingLicense" | translate
+                      }}</label
+                      ><br />
+                      <button class="btn btn-primary m-2">
+                        {{ "View" | translate }}
+                      </button>
+                    </div>
+                    <div class="mt-3 col-xs-12 col-sm-12 col-md-3 col-lg-3">
+                      <label class="form-label">{{
+                        "VehicleRegistration-Front" | translate
+                      }}</label
+                      ><br />
+                      <button class="btn btn-primary m-2">
+                        {{ "View" | translate }}
+                      </button>
+                    </div>
+                    <div class="mt-3 col-xs-12 col-sm-12 col-md-3 col-lg-3">
+                      <label class="form-label">{{
+                        "VehicleRegistration-Back" | translate
+                      }}</label
+                      ><br />
+                      <button class="btn btn-primary m-2">
+                        {{ "View" | translate }}
+                      </button>
+                    </div>
+                  </div>
+                </fieldset>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                  <label for="subject">{{ "Note" | translate }}</label>
+                  <app-text-area formControlName="fineNote"></app-text-area>
+                </div>
+              </div>
+              <div class="row mt-4">
+                <button
+                  *appHasRole="['Security']"
+                  [disabled]="!userDetailsForm.valid"
+                  class="btn btn-Cancel m-2"
+                >
+                  {{ "Cancel" | translate }}
+                </button>
+
+                <button
+                  *appHasRole="['Staff']"
+                  [disabled]="!userDetailsForm.valid"
+                  class="btn btn-success m-2"
+                >
+                  {{ "Update-Request" | translate }}
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

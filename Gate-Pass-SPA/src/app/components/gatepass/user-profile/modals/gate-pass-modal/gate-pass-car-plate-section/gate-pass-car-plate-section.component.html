@@ -1,0 +1,76 @@
+<div class="row" [formGroup]="vehicleDetails" *ngIf="vehicleDetails">
+  <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+    <label for="name"
+      >{{ "PlateNumber" | translate }}
+      <span class="font-danger">*</span>:</label
+    >
+    <app-text-input
+      [formControl]="
+        vehicleDetails.controls['plateDetails'].controls['plateNumber']
+      "
+      (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
+      [type]="number"
+      [label]="'PlateNumber' | translate"
+    >
+    </app-text-input>
+  </div>
+  <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+    <label for="name"
+      >{{ "PlateCode" | translate }} <span class="font-danger">*</span>:</label
+    >
+
+    <app-plate-code-autocomplete
+      [formControl]="
+        vehicleDetails.controls['plateDetails'].controls['zPlateCodeId']
+      "
+    ></app-plate-code-autocomplete>
+  </div>
+
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <div class="row mt-4">
+      <div
+        class="col-xs-6 col-sm-6 col-md-6 col-lg-6 d-flex justify-content-start"
+      >
+        <button class="btn btn-light mr-1" type="button" awPreviousStep>
+          {{ "Back" | translate }}
+        </button>
+      </div>
+      <div
+        class="col-xs-6 col-sm-6 col-md-6 col-lg-6 d-flex justify-content-end"
+      >
+        <!-- ||
+            (vehicleDetails.get('plateDetails.plateNumber').value != null &&
+              vehicleDetails.get('plateDetails.zPlateCodeId').value != null &&) -->
+        <button
+          class="btn btn-primary mr-1"
+          type="button"
+          *ngIf="isSecurity == false && vehicleDetails.value.isEdit == true"
+          [disabled]="vehicleDetails.get('plateDetails').valid == false"
+          awNextStep
+          (click)="getVehicleDetails()"
+        >
+          {{ "NEXT" | translate }}
+        </button>
+        <button
+          class="btn btn-primary mr-1"
+          type="button"
+          *ngIf="!vehicleDetails.value.isEdit && isSecurity == false"
+          awNextStep
+        >
+          {{ "NEXT" | translate }}
+        </button>
+        <button
+          *ngIf="isSecurity"
+          class="btn btn-primary mr-1"
+          type="button"
+          awNextStep
+        >
+          {{ "NEXT" | translate }}
+        </button>
+        <!-- <button class="btn btn-primary mr-1" type="button" awNextStep>
+          Next
+        </button> -->
+      </div>
+    </div>
+  </div>
+</div>

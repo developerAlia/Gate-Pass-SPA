@@ -1,0 +1,95 @@
+<div class="container-fluid mt-4" *ngIf="userData">
+  <div class="row mb-2">
+    <div class="col-auto">
+      <img
+        class="img-100 rounded-circle"
+        alt=""
+        src="{{
+          userData?.img
+            ? 'data:image/jpg;base64,' + userData?.img
+            : 'assets/images/user/user.png'
+        }}"
+      />
+    </div>
+    <div class="col align-self-center">
+      <h5 class="mb-1">
+        {{ userData["fullName" + (translate.currentLang | titlecase)] }}
+        <!-- userData["fullName" + (translate.currentLang | titlecase)] -->
+      </h5>
+      <!-- <p class="mb-4">{{userData.department}}</p> -->
+    </div>
+  </div>
+
+  <div class="row mt-4">
+    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+      <label for="Designation">
+        {{ "Designation" | translate }}
+      </label>
+      <div class="form-group">
+        <input
+          readonly
+          class="form-control bg-color-white"
+          [value]="
+            userData['designation' + (translate.currentLang | titlecase)]
+          "
+        />
+      </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+      <label for="Department">
+        {{ "Department" | translate }}
+      </label>
+      <div class="form-group">
+        <input
+          readonly
+          class="form-control bg-color-white"
+          [value]="userData['department' + (translate.currentLang | titlecase)]"
+        />
+      </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 mt-4">
+      <label for="EMAIL">
+        {{ "Email" | translate }}
+      </label>
+      <div class="form-group">
+        <input
+          readonly
+          class="form-control bg-color-white"
+          [value]="userData?.email"
+        />
+      </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 mt-4 align-self-center">
+      <!-- <label for="EMAIL">
+        {{ "Email" | translate }}
+      </label> -->
+      <div class="form-group">
+        <label for="IsOfficer">{{ "IsOfficer" | translate }}:</label>
+        <mat-slide-toggle class="m-4" disabled [checked]="userData?.isOfficer">
+          {{ (userData?.isOfficer == true ? "Yes" : "No") | translate }}
+        </mat-slide-toggle>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+      <div class="row mt-4">
+        <div
+          class="col-xs-6 col-sm-6 col-md-6 col-lg-6 d-flex justify-content-start"
+        >
+          <!-- <button class="btn btn-light mr-1" type="button" awPreviousStep>
+              Back
+            </button> -->
+        </div>
+        <div
+          class="col-xs-6 col-sm-6 col-md-6 col-lg-6 d-flex justify-content-end"
+        >
+          <button class="btn btn-primary mr-1" type="button" awNextStep>
+            {{ "NEXT" | translate }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

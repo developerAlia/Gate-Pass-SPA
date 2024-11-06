@@ -1,0 +1,9 @@
+<div class="form-group">
+  <textarea [class.is-invalid]="ngControl.touched && ngControl.invalid"  [rows]="rowsNum" [readonly]=!readonlyStatus
+    class="form-control" [formControl]="ngControl.control" placeholder={{label}}></textarea>
+
+  <div *ngIf="ngControl.control.errors?.required" class="invalid-feedback">
+    {{label}} is required !
+  </div>
+
+</div>

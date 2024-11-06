@@ -1,0 +1,56 @@
+<!-- <div class="row">
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <div class="card">
+      <div class="card-body">
+        <div class="container" style="width: 100%;">
+          <div class="row">
+            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+            <button class="btn btn-outline-primary" type="button" placement="top"
+              ngbTooltip="btn btn-outline-primary" role="button" (click)="getNotification()">Refresh <i
+                class="fa fa-refresh"></i></button>
+              </div>
+
+              <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6" *ngIf="notificationData.length !== 0">
+                <button  style="float: right;" class="btn btn-outline-danger" type="button" placement="top"
+                ngbTooltip="btn btn-outline-primary" role="button" (click)="clearNotification()">Clear All
+                <i class="fa fa-times"></i>
+
+                </button>
+              </div>
+          </div>
+        </div>
+        <div class="table-responsive">
+          <table class="table table-hover">
+            <thead>
+
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Description</th>
+                <th scope="col">Time Ago</th>
+                <th scope="col"> </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let notify of notificationData  ; let i = index ">
+                <td>{{i+1}}</td>
+                <td>{{notify.actionDesc}}</td>
+                <td timeago [date]="notify.createdOn"></td>
+
+
+                <ng-template #tipAtch>Detail</ng-template>
+                <td>
+                  <span [ngbTooltip]="tipAtch"><a href="javascript:void(0)"
+                      (click)="go2ResearcherDetails(notify.researcherId, notify.zNotiFieldsNameId, notify.notificatId)"><i class="fa fa-file-text"></i></a>
+                  </span>
+                </td>
+
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div>
+</div> -->

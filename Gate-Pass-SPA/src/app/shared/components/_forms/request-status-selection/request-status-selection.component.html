@@ -1,0 +1,15 @@
+<div class="form-group">
+  <ng-select
+    [items]="zRequestsStatus"
+    [class.is-invalid]="ngControl.touched && ngControl.invalid"
+    [formControl]="ngControl.control"
+    [clearable]="false"
+    bindValue="zRequestsStatusId"
+    bindLabel="{{ 'name' + (translate.currentLang | titlecase) }}"
+    [placeholder]="'SELECTSTATUSTYPE' | translate"
+  >
+  </ng-select>
+  <div *ngIf="ngControl.control.errors?.required" class="invalid-feedback">
+    {{ "is-required" | translate }}
+  </div>
+</div>

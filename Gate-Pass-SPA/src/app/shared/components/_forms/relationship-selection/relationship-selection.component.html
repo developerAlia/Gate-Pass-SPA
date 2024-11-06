@@ -1,0 +1,15 @@
+<div class="form-group">
+  <ng-select
+    [items]="zRelationship"
+    [class.is-invalid]="ngControl.touched && ngControl.invalid"
+    [formControl]="ngControl.control"
+    [clearable]="false"
+    bindValue="zRelationshipId"
+    bindLabel="{{ 'name' + (translate.currentLang | titlecase) }}"
+    [placeholder]="'SELECTRELATIONSHIP' | translate"
+  >
+  </ng-select>
+  <div *ngIf="ngControl.control.errors?.required" class="invalid-feedback">
+    {{ "is-required" | translate }}
+  </div>
+</div>

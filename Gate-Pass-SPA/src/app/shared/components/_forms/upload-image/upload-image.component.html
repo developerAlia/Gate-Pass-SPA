@@ -1,0 +1,64 @@
+<div class="image-upload">
+  <img
+    class="img-thumbnail"
+    src="{{
+      tempURLImg != null
+        ? 'data:image/jpg;base64,' + tempURLImg
+        : ngControl.value != null
+        ? 'data:image/jpg;base64,' + ngControl.value
+        : 'assets/images/attachment-3.jpg'
+    }}"
+    alt=""
+    (click)="imageUpload.click()"
+    style="cursor: pointer; width: 30vh"
+  />
+  <span
+    style="cursor: pointer"
+    *ngIf="!this.ngControl.disabled"
+    (click)="imageUpload.click()"
+    style="font-size: 1.73em"
+    class="font-success ml-3"
+  >
+    <i class="fa fa-plus-circle" style="cursor: pointer"></i>
+  </span>
+</div>
+<div>
+  <small
+    class="form-text text-muted mt-3"
+    id="attachmentHelp"
+    *ngIf="!this.ngControl.disabled"
+  >
+    {{ "Attachment.IMAGE" | translate }}&nbsp;{{
+      "Attachment.SHOULDBE" | translate
+    }}<strong>&nbsp;({{ fileType }})</strong>
+    {{ "Attachment.ANDMAXSIZE" | translate }}&nbsp;<strong
+      >7{{ "MB" | translate }}</strong
+    >
+  </small>
+  <br />
+  <input
+    type="file"
+    class="custom-file-input"
+    id="validatedCustomFile"
+    accept=".jpg"
+    style="display: none"
+    #imageUpload
+    [formControl]="ngControl.control"
+  />
+  <div
+    class="invalid-feedback"
+    style="padding-top: 2px; display: block"
+    *ngIf="ngControl.errors?.requiredFileType"
+  >
+    {{ fileType }}&nbsp; {{ "Attachment.REQUIRED" | translate }} !
+  </div>
+  <div
+    class="invalid-feedback"
+    style="padding-top: 2px; display: block"
+    *ngIf="ngControl.errors?.fileSizeValidator"
+  >
+    {{ "Attachment.EXCEEDSIZE" | translate }}&nbsp; 7 &nbsp;{{
+      "Attachment.MB" | translate
+    }}
+  </div>
+</div>

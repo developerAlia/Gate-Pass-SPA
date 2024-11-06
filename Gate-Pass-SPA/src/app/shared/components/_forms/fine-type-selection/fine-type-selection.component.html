@@ -1,0 +1,16 @@
+<div class="form-group">
+  <ng-select
+    [items]="fineType"
+    [class.is-invalid]="ngControl.touched && ngControl.invalid"
+    [formControl]="ngControl.control"
+    [clearable]="false"
+    bindValue="zFinesTypeId"
+    class="bg-color-white"
+    bindLabel="{{ 'name' + (translate.currentLang | titlecase) }}"
+    [placeholder]="'FineType' | translate"
+  >
+  </ng-select>
+  <div *ngIf="ngControl.control.errors?.required" class="invalid-feedback">
+    {{ "is-required" | translate }}
+  </div>
+</div>

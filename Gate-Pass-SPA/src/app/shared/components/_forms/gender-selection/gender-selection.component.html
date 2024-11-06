@@ -1,0 +1,16 @@
+<div class="form-group">
+  <ng-select
+    [items]="gender"
+    [class.is-invalid]="ngControl.touched && ngControl.invalid"
+    [formControl]="ngControl.control"
+    [clearable]="false"
+    bindValue="zGenderId"
+    class="bg-color-white"
+    bindLabel="{{ 'name' + (translate.currentLang | titlecase) }}"
+    [placeholder]="'SELECTGENDER' | translate"
+  >
+  </ng-select>
+  <div *ngIf="ngControl.control.errors?.required" class="invalid-feedback">
+    {{ "is-required" | translate }}
+  </div>
+</div>

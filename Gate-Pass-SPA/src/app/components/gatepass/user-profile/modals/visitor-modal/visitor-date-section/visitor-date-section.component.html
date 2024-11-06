@@ -1,0 +1,108 @@
+<div class="row" [formGroup]="permitDates" *ngIf="permitDates">
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 mb-3">
+    <div class="row">
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <label for="visitType">{{ "VISITTYPE" | translate }} <span class="font-danger">*</span>:</label>
+        <visit-type
+          [formControl]="permitDates.controls['zVisitTypeId']"
+          [isOfficer]="isOfficer"
+          [selectedId]="this.permitDates.get('zVisitTypeId').value"
+        ></visit-type>
+      </div>
+    </div>
+  </div>
+
+  <div
+    class="col-xs-12 col-sm-12 col-md-12 col-lg-12"
+    *ngIf="this.permitDates.get('zVisitTypeId').value != null"
+  >
+    <div class="row">
+      <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+        <label for="from">{{ "FROM" | translate }} <span class="font-danger">*</span>:</label>
+        <app-date-picker
+          [formControl]="permitDates.controls['permitDateFrom']"
+          [label]="'FROM' | translate"
+          [readonlyStatus]="!permitDates.controls['permitDateFrom'].disabled"
+          [minDate]="this.minDate"
+        >
+        </app-date-picker>
+      </div>
+      <div
+        class="col-xs-12 col-sm-12 col-md-6 col-lg-6"
+        *ngIf="this.visitorDetails.get('numberOfDays').value > 1"
+      >
+        <label for="to">{{ "TO" | translate }} <span class="font-danger">*</span>:</label>
+        <app-date-picker
+          [formControl]="permitDates.controls['permitDateTo']"
+          [label]="'TO' | translate"
+          [readonlyStatus]="
+            (permitDates.get('permitDateFrom').value != null &&
+              !permitDates.controls['permitDateTo'].disabled == true) ||
+            (permitDates.get('permitDateFrom').value != null &&
+              permitDates.controls['permitDateTo'].disabled == false)
+          "
+          [minDate]="permitDates.get('permitDateFrom').value"
+          [maxDate]="this.maxDate"
+        >
+        </app-date-picker>
+      </div>
+
+      <!-- <div
+        class="col-xs-12 col-sm-12 col-md-12 col-lg-12"
+        *ngIf="this.numberOfDays >= 1"
+      >
+        <label for="ATTENTION">{{ "ATTENTION" | translate }}:</label>
+
+        <p *ngIf="this.numberOfDays >= 1 && this.numberOfDays <= 3">
+          Your Process will goes to approval immediately
+        </p>
+      </div> -->
+    </div>
+  </div>
+
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <div class="row mt-4">
+      <div
+        class="col-xs-6 col-sm-6 col-md-6 col-lg-6 d-flex justify-content-start"
+      >
+        <button
+          class="btn btn-light mr-1"
+          type="button"
+          awPreviousStep
+          *ngIf="this.isSecurity"
+        >
+          {{ "Back" | translate }}
+        </button>
+      </div>
+      <div
+        class="col-xs-6 col-sm-6 col-md-6 col-lg-6 d-flex justify-content-end"
+      >
+        <button
+          *ngIf="!isSecurity && permitDates.value.isEdit == true"
+          class="btn btn-primary mr-1"
+          type="button"
+          [disabled]="!permitDates.valid"
+          awNextStep
+        >
+          {{ "NEXT" | translate }}
+        </button>
+        <button
+          class="btn btn-primary mr-1"
+          type="button"
+          *ngIf="!permitDates.value.isEdit && isSecurity == false"
+          awNextStep
+        >
+          {{ "NEXT" | translate }}
+        </button>
+        <button
+          *ngIf="isSecurity"
+          class="btn btn-primary mr-1"
+          type="button"
+          awNextStep
+        >
+          {{ "NEXT" | translate }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

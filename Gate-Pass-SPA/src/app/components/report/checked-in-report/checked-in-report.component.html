@@ -1,0 +1,89 @@
+<div
+  class="col-xs-12 col-sm-12 col-md-12 col-lg-12"
+  *ngIf="searchForm"
+  [formGroup]="searchForm"
+>
+  <div class="card">
+    <div class="card-header">
+      <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+          <h5><i class="fa fa-filter mr-2"></i>{{ "Filter" | translate }}</h5>
+        </div>
+
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 mt-4">
+          <label for="date">{{ "DATE" | translate }}</label>
+          <app-date-picker formControlName="date"></app-date-picker>
+        </div>
+
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+          <button class="btn btn-dark" type="button" (click)="searchReset()">
+            {{ "Reset" | translate }}
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="card">
+        <div class="table-responsive">
+          <table class="table table-hover">
+            <thead class="thead-dark">
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">{{ "VisitorName" | translate }}</th>
+                <th scope="col">{{ "DATE" | translate }}</th>
+                <th scope="col">{{ "TIME" | translate }}</th>
+                <th scope="col">{{ "VISITTYPE" | translate }}</th>
+                <th scope="col">{{ "Phone" | translate }}</th>
+                <th scope="col">{{ "RequesterName" | translate }}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of dataCard; let i = index">
+                <th scope="row">
+                  {{
+                    pagination.itemsPerPage * (pagination.currentPage - 1) +
+                      (i + 1)
+                  }}
+                </th>
+                <td>
+                  {{ item.visitorName }}
+                </td>
+                <td>
+                  <b>{{ item.checkingDate | date }}</b>
+                </td>
+                <td>
+                  <b>{{ item.checkingDate | date : "mediumTime" }}</b>
+                </td>
+                <td>
+                  {{
+                    item[
+                      "zVisitTypesName" + (translate.currentLang | titlecase)
+                    ]
+                  }}
+                </td>
+                <td>
+                  {{ item.visitorPhone }}
+                </td>
+                <td>
+                  {{
+                    item["requesterName" + (translate.currentLang | titlecase)]
+                  }}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <ngb-pagination
+        [boundaryLinks]="true"
+        [(page)]="pagination.currentPage"
+        [pageSize]="pagination.itemsPerPage"
+        [collectionSize]="pagination.totalItems"
+        (pageChange)="changePage($event)"
+        [rotate]="true"
+        [maxSize]="5"
+        [boundaryLinks]="true"
+      ></ngb-pagination>
+    </div>
+  </div>
+</div>

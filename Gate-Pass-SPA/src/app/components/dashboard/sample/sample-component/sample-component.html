@@ -1,0 +1,28 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="card">
+        <div class="card-header">
+          <h4>Welcome to MTC Gate Pass System</h4>
+        </div>
+        <div class="card-header">
+          <h5>Statistics</h5>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <app-user-graph
+              class="col-xs-12 col-sm-12 col-md-12 col-lg-6"
+              *appHasRole="['Admin', 'SysAdmin']"
+            ></app-user-graph>
+
+            <app-request-type-graph
+              class="col-xs-12 col-sm-12 col-md-12 col-lg-6"
+              *appHasRole="['Admin', 'SysAdmin']"
+            >
+            </app-request-type-graph>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

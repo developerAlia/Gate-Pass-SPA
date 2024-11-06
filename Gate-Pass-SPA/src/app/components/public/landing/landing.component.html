@@ -1,0 +1,87 @@
+<!-- <p>landing works!</p> -->
+
+<div class="page-wrapper">
+  <!-- Page Header Start-->
+  <div
+    class="page-main-header header"
+    id="page-main-header"
+    style="width: 100% !important; max-width: 100% !important"
+  >
+    <div class="main-header-right row">
+      <div class="main-header-left d-none d-lg-block d-xl-block">
+        <div class="logo-wrapper">
+          <a href="javascript::void(0)"
+            ><img
+              src="assets/images/mtc/mtc_logo.png"
+              style="width: 12% !important"
+              alt=""
+          /></a>
+        </div>
+        <!-- <p>testdsafds</p> -->
+      </div>
+      <div class="main-header-left d-lg-none">
+        <div class="logo-wrapper">
+          <a href="javascript::void(0)"
+            ><img src="assets/images/mtc/mtc_logo.png" alt=""
+          /></a>
+        </div>
+      </div>
+      <div class="mobile-sidebar">
+        <div class="media-body text-right switch-sm">
+          <!-- <label class="switch">
+
+            <a href="javascript:void(0)" >
+              <app-feather-icons id="sidebar-toggle" [icon]="'align-left'"></app-feather-icons>
+            </a>
+          </label> -->
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Page Header Ends -->
+
+  <div class="page-body-wrapper">
+    <div class="page-body body-padding">
+      <div class="container-fluid content" style="padding: 0 !important">
+        <div class="row pt-2">
+          <div class="col-sm-12">
+            <div
+              class="card"
+              *ngIf="publicData == null"
+              style="border: 0 !important"
+            >
+              <div class="card-body">
+                <h1 class="not-available">
+                  <i class="icofont icofont-close-squared"></i>
+                </h1>
+
+                <h3 style="text-align: center">
+                  <b>QR Not Available!</b>
+                </h3>
+                <h3 dir="rtl" style="text-align: center">
+                  <b>رمز الإستجابة السريعة غير متوفر!</b>
+                </h3>
+              </div>
+            </div>
+            <div class="card" *ngIf="publicData">
+              <div
+                class="card-body align-self-center"
+                style="padding: 0 !important"
+              >
+                <img
+                  class="qr-img"
+                  src="{{ 'data:image/jpg;base64,' + publicData }}"
+                  alt=""
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer class="footer">
+      <app-footer></app-footer>
+    </footer>
+  </div>
+</div>

@@ -1,0 +1,87 @@
+<form [formGroup]="drivingLicenseGroup" (submit)="onSubmit()">
+  <div class="card m-5">
+    <div class="container-fluid mt-1">
+      <div class="row">
+        <div class="col-sm-12 col-xl-12">
+          <div class="card-absolute">
+            <div class="card-header bg-danger">
+              <h5>{{ "DrivingLicense" | translate }}</h5>
+            </div>
+            <div class="card-body">
+              <div class="row m-5">
+                <div class="col-xs-12 col-sm-12 col-md-4 col-lg-2 md-2">
+                  <label for="subject"
+                    >{{ "DrivingLicense" | translate
+                    }}<span class="font-danger">*</span></label
+                  >
+                  <label class="btn btn-primary" for="validatedCustomFile">{{
+                    "ChooseFile" | translate
+                  }}</label>
+                  <input
+                    [class.is-invalid]="
+                      drivingLicenseGroup.get('drivingLicenseFile').invalid &&
+                      (drivingLicenseGroup.get('drivingLicenseFile').dirty ||
+                        drivingLicenseGroup.get('drivingLicenseFile').touched)
+                    "
+                    type="file"
+                    class="custom-file-input"
+                    id="validatedCustomFile"
+                    required
+                    formControlName="drivingLicenseFile"
+                    (change)="checkFileSize($event.target.files, true)"
+                  />
+                  <div class="invalid-feedback" style="padding-top: 2px">
+                    {{ "Attachment-is-required" | translate }}
+                  </div>
+                  <label
+                    for="validatedCustomFile"
+                    *ngIf="drivingLicenseGroup.value.drivingLicenseFile != null"
+                    >{{ drivingLicenseGroup.value.drivingLicenseFile }}</label
+                  >
+                  <small class="form-text text-muted mt-3" id="attachmentHelp">
+                    {{ "Attachment-Should-be" | translate }}
+                    <strong>PDF</strong> {{ "Attachment.ANDMAXSIZE" | translate }}
+                    <strong>5{{ "MB" | translate }}</strong>
+                  </small>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-4 col-lg-5 md-2">
+                  <label for="issueDate"
+                    >{{ "IssueDate" | translate
+                    }}<span class="font-danger">*</span></label
+                  >
+                  <app-date-picker
+                    formControlName="drivingLicensesIssueDate"
+                  ></app-date-picker>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-4 col-lg-5 md-2">
+                  <label for="ExpiryDate"
+                    >{{ "ExpiryDate" | translate
+                    }}<span class="font-danger">*</span></label
+                  >
+                  <app-date-picker
+                    formControlName="drivingLicensesExpairyDate"
+                    [minDate]="
+                      drivingLicenseGroup.get('drivingLicensesIssueDate').value
+                    "
+                  ></app-date-picker>
+                </div>
+                <div></div>
+              </div>
+            </div>
+            <div class="row m-5">
+              <button (click)="closeModal()" class="btn btn-secondary m-2" type="button">
+                {{ "Cancel" | translate }}
+              </button>
+              <button
+                class="btn btn-success m-2"
+                [disabled]="drivingLicenseGroup.invalid"
+              >
+                {{ "Submit" | translate }}
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>

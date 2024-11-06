@@ -1,0 +1,78 @@
+<div class="card">
+  <div class="card-absolute">
+    <div class="row ml-4 mr-4"></div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center">
+          <car-plate
+            [plateNumber]="cardData.plateNumber"
+            [plateCodeEn]="cardData.zPlateCodeNameEn"
+            [plateCodeAr]="cardData.zPlateCodeNameAr"
+            [plateColor]="cardData.zOwnershipTypeColorClass"
+            [plateTextColor]="cardData.zOwnershipTypeTextColor"
+          ></car-plate>
+        </div>
+
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 mt-4">
+          <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+              <label class="form-label"
+                >{{ "VehicleMaker" | translate }}:</label
+              >
+              <div class="form-group">
+                <input
+                  readonly
+                  class="form-control bg-color-white"
+                  [value]="
+                    cardData[
+                      'zVehicleMakerName' + (translate.currentLang | titlecase)
+                    ] +
+                    ' ' +
+                    cardData[
+                      'zVehicleModelName' + (translate.currentLang | titlecase)
+                    ] +
+                    ' - ' +
+                    cardData.year
+                  "
+                />
+              </div>
+            </div>
+
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+              <div class="form-group">
+                <label class="form-label">{{ "FineType" | translate }}</label>
+                <input
+                  readonly
+                  class="form-control bg-color-white"
+                  [value]="
+                    cardData[
+                      'zFinesTypeName' + (translate.currentLang | titlecase)
+                    ]
+                  "
+                />
+              </div>
+            </div>
+
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+              <div class="form-group">
+                <label class="form-label">{{ "FineReason" | translate }}</label>
+                <textarea
+                  rows="2"
+                  class="form-control"
+                  readonly
+                  style="background-color: white !important"
+                  [value]="
+                    cardData[
+                      'zFinesReasonName' + (translate.currentLang | titlecase)
+                    ]
+                  "
+                >
+                </textarea>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

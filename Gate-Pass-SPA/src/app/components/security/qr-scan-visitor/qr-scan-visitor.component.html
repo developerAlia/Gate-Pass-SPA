@@ -1,0 +1,20 @@
+<div class="pb-4">
+  <div class="card">
+    <div class="card-body">
+      <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+          <check-in-details
+            [checkInData]="checkInData"
+            [pagination]="pagination"
+            [checkInDetails]="this.checkInDetails"
+          ></check-in-details>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+          <button type="button" class="btn btn-success btn-lg" (click)="checkIn()">
+            {{ "CheckIn" | translate }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
