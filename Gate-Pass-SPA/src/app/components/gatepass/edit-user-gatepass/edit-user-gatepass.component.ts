@@ -8,6 +8,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
   styleUrls: ['./edit-user-gatepass.component.scss']
 })
 export class EditUserGatepassComponent implements OnInit {
+  //test
   public userDetailsForm : FormGroup;
   constructor(private fb: FormBuilder) { }
 
