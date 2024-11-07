@@ -1,6 +1,5 @@
 import { MyvisitorsComponent } from "./user-profile/sections/visitor-section/myvisitors/myvisitors.component";
 import { MyfinesComponent } from "./myfines/myfines.component";
-import { MygatepassComponent } from "./user-profile/sections/gate-pass-section/mygatepass/mygatepass.component";
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 import { AdminGuard } from "src/app/shared/guard/admin.guard";
